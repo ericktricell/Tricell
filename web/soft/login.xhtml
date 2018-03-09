@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8"/>
+
+        <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/login.css"/>
+        <title>Tricell Admin</title>
+
+    </h:head>
+
+    <h:body>
+        <div class="container card-login text-center">
+            <div class="card box">
+                <div class="card-header"><img src="../img/icon.png"/> <strong>Login</strong></div>
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <div class="card-group">
+                        <p:outputLabel for="logintxt" value="Login"/>
+                        <p:inputText id="logintxt" type="text" value="#{loginBean.login}" placeholder="Nome de Usuario"/>
+                    </div>
+                    <div class="card-group">
+                        <p:outputLabel for="senhatxt" value="Senha"/>
+                        <p:inputText value="#{loginBean.senha}" id="senhatxt" type="password" placeholder="Senha"/>
+                    </div>
+                    <p:commandButton class="btn btn-primary" action="#{loginBean.valida()}" value="Login" update="growl"/>
+                </h:form>
+            </div>
+        </div>
+
+        <!-- scripts sessão-->
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery-easing/jquery.easing.min.js"></script>
+    </h:body>
+
+</html>

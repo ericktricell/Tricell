@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon"/>
+        <link rel="stylesheet" href="css/base.css"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <title>Tricell Admin</title>
+    </h:head>
+    <h:body >
+        <h:form>
+            <p:menubar>
+                <p:menuitem icon="ui-icon-home" value="Resumo" action="#{menu.resumo()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{inicioBean.emf}"/>
+                    </p:menuitem>
+                    <p:menuitem icon="ui-icon-transferthick-e-w" value="Movimentos" action="#{menu.movimentos()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{movimentoBean.emf}"/>
+                    </p:menuitem>
+                    <p:menuitem icon="ui-icon-person" value="Pessoas" action="#{menu.pessoas()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{pessoaBean.emf}"/>
+                    </p:menuitem>
+                <p:submenu icon="ui-icon-gear" label="#{loginBean.user.idempresa.nomefantasia}">
+                    <p:menuitem icon="ui-icon-suitcase" value="Empresas" action="#{menu.empresas()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{empresaBean.emf}"/>
+                    </p:menuitem>
+                    <p:menuitem icon="ui-icon-person" value="Usuarios" action="#{menu.usuarios()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{usuarioBean.emf}"/>
+                    </p:menuitem>
+                    <p:menuitem icon="ui-icon-tag" value="Contas" action="#{menu.contas()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{contasBean.emf}"/>
+                    </p:menuitem>
+                    <p:menuitem icon="ui-icon-bookmark" value="Depositos" action="#{menu.depositos()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{depositoBean.emf}"/>
+                    </p:menuitem>
+                </p:submenu>
+                <f:facet name="options">
+                    <p:commandButton value="Logout" icon="ui-icon-extlink" action="#{loginBean.logout()}"/>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+
+        <p:fieldset >
+            <ui:insert name="conteudo" />
+        </p:fieldset>
+
+
+    </h:body>
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base.xhtml">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewAction action="#{movimentoBean.pegaDados()}"/>
+        </f:metadata>
+        <p:growl id="msgs" showDetail="true" />
+        <p:tabView>
+            <p:tab title="Cadastrar">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Tipo:" for="tipo" />
+                        <p:selectOneRadio id="tipo" value="#{movimentoBean.mov.tipo}">
+                            <f:selectItem itemLabel="Despesa" itemValue="Despesa"/>
+                            <f:selectItem itemLabel="Receita" itemValue="Receita"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel value="Descricao:" for="descricao" />
+                        <p:inputTextarea id="descricao" rows="4" cols="40" maxlength="150" counterTemplate="{0} Caracteres Restando" autoResize="false" value="#{movimentoBean.mov.descricao}" title="Descricao" />
+                        <p:outputLabel value="Qnt:" for="qnt" />
+                        <p:inputText id="qnt" value="#{movimentoBean.mov.qnt}" title="Qnt" />
+                        <p:outputLabel value="Vlr(R$):" for="vlr" />
+                        <p:inputText id="vlr" value="#{movimentoBean.mov.vlr}" title="Vlr" />
+                        <p:outputLabel value="Categoria:" for="categoria" />
+                        <p:selectOneMenu id="categoria" value="#{movimentoBean.mov.categoria}" title="Categoria" >
+                            <f:selectItem itemLabel="Venda" itemValue="Venda" />
+                            <f:selectItem itemLabel="Serviços" itemValue="Serviços" />
+                            <f:selectItem itemLabel="Compras" itemValue="Compras" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Conta:" for="idConta" />
+                        <p:selectOneMenu id="idConta" value="#{movimentoBean.mov.idConta}" required="true">
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{movimentoBean.lsConta}" var="c" itemLabel="Titular - #{c.titular}" itemValue="#{c}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Pessoa:" for="idPessoa" />
+                        <p:selectOneMenu id="idPessoa" value="#{movimentoBean.mov.idPessoa}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{movimentoBean.lsPes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Vizualizar">
+                <h:form>
+                    <p:dataTable value="#{movimentoBean.lsMov}" var="item" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" resizableColumns="true">
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descricao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descricao}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qnt"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qnt}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vlr}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="For. Pag."/>
+                            </f:facet>
+                            <h:outputText value="#{item.formapagamento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Categoria"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categoria}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Conta"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idConta.titular}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Pessoa"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPessoa.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </p:tab>
+
+        </p:tabView>
+    </ui:define>
+
+</ui:composition>

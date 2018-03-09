@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base.xhtml">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewAction action="#{usuarioBean.listaTodos()}"/>
+        </f:metadata>
+        <h:form id="listUser">
+            <p:dataTable value="#{usuarioBean.listU}" var="item" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" resizableColumns="true">
+                <p:column style="width:60px;text-align: center">
+                    <p:commandButton icon="ui-icon-search" ajax="true" update="detuser">
+                        <f:setPropertyActionListener value="#{item}" target="#{usuarioBean.u}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nome}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Telefone"/>
+                    </f:facet>
+                    <h:outputText value="#{item.telefone}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Telefone1"/>
+                    </f:facet>
+                    <h:outputText value="#{item.telefone1}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+            <h:form id="detuser">
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="Nome:" for="nome" />
+                        <p:inputText id="nome" value="#{usuarioBean.u.nome}" title="Nome" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Login:" for="login" />
+                        <p:inputText id="login" value="#{usuarioBean.u.login}" title="Login" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Senha:" for="senha" />
+                        <p:inputText type="password" id="senha" value="#{usuarioBean.u.senha}" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="Telefone:" for="telefone" />
+                        <p:inputText id="telefone" value="#{usuarioBean.u.telefone}" title="Telefone" />
+                    </div>
+                    <div class="col-md-2">
+                        <p:inputText id="telefone1" value="#{usuarioBean.u.telefone1}" title="Telefone1" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Email:" for="email" />
+                        <p:inputText id="email" value="#{usuarioBean.u.email}" title="Email" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="End.:" for="endereco" />
+                        <p:inputText id="endereco" value="#{usuarioBean.u.endereco}" title="Endereco" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Bairro:" for="bairro" />
+                        <p:inputText id="bairro" value="#{usuarioBean.u.bairro}" title="Bairro" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Cidade:" for="cidade" />
+                        <p:inputText id="cidade" value="#{usuarioBean.u.cidade}" title="Cidade" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Cep:" for="cep" />
+                        <p:inputText id="cep" value="#{usuarioBean.u.cep}" title="Cep" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group ">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p:outputLabel value="Ativo:" for="ativo" />
+                        <p:selectBooleanCheckbox id="ativo" value="#{usuarioBean.u.ativo}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <p:outputLabel value="Empresa:" for="idempresa" />
+                        <p:selectOneMenu id="idempresa" value="#{usuarioBean.u.idempresa}" converter="EmpresaConverter" required="true" requiredMessage="Selecione a empresa">
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                            <f:selectItems value="#{usuarioBean.listemp}" var="emp" itemLabel="#{emp.nomefantasia}" itemValue="#{emp}"/>
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </div>
+            <p:commandButton value="Salvar" action="#{usuarioBean.salvar()}" icon="ui-icon-disk" ajax="true" update="listUser"/>
+            <p:commandButton type="reset" value="Limpar" action="#{usuarioBean.limpaCampos()}" ajax="true" update="listUser" />
+        </h:form>
+    </ui:define>
+</ui:composition>

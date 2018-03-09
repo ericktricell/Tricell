@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base.xhtml">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewAction action="#{empresaBean.pegaEmpresa()}"/>
+        </f:metadata>
+
+        <h:form id="listaemp">
+            <p:dataTable value="#{empresaBean.listemp}" var="item" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" resizableColumns="true">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nomefantasia"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomefantasia}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ramoatuacao"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ramoatuacao}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="detemp">
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p:outputLabel value="Nomefantasia:" for="nomefantasia" />
+                        <p:inputText id="nomefantasia" value="#{empresaBean.emp.nomefantasia}" title="Nomefantasia" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Cnpj:" for="cnpj" />
+                        <p:inputText id="cnpj" value="#{empresaBean.emp.cnpj}" title="Cnpj" />
+                    </div>
+                    <div class="col-md-4">
+                        <p:outputLabel value="Ramoatuacao:" for="ramoatuacao" />
+                        <p:inputText id="ramoatuacao" value="#{empresaBean.emp.ramoatuacao}" title="Ramoatuacao" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="End.:" for="endereco" />
+                        <p:inputText id="endereco" value="#{empresaBean.emp.endereco}" title="Endereco" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Bairro:" for="bairro" />
+                        <p:inputText id="bairro" value="#{empresaBean.emp.bairro}" title="Bairro" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="Cidade:" for="cidade" />
+                        <p:inputText id="cidade" value="#{empresaBean.emp.cidade}" title="Cidade" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Cep:" for="cep" />
+                        <p:inputText id="cep" value="#{empresaBean.emp.cep}" title="Cep" />
+                    </div>
+                </div>
+            </div>
+            <p:commandButton action="#{empresaBean.create()}" icon="ui-icon-disk" value="Salvar" ajax="true" update="listaemp"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base.xhtml">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewAction action="#{contasBean.contas()}"/>
+        </f:metadata>
+
+        <h:form id="listacontas">
+            <p:dataTable value="#{contasBean.lisC}" var="conta" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" resizableColumns="true">
+
+                <p:column style="width:100px;text-align: center">
+                    <p:commandButton icon="ui-icon-search" ajax="true" update="detConta">
+                        <f:setPropertyActionListener value="#{conta}" target="#{contasBean.c}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Agencia"/>
+                    </f:facet>
+                    <h:outputText value="#{conta.agencia}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Numconta"/>
+                    </f:facet>
+                    <h:outputText value="#{conta.numconta}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tipo"/>
+                    </f:facet>
+                    <h:outputText value="#{conta.tipo}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="detConta">
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="Agencia:" for="agencia" />
+                        <p:inputText id="agencia" value="#{contasBean.c.agencia}" title="Agencia" />
+                    </div>
+                    <div class="col-md-4">
+                        <p:outputLabel value="Num. Conta:" for="numconta" />
+                        <p:inputText id="numconta" value="#{contasBean.c.numconta}" title="Numconta" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p:outputLabel value="Tipo:" for="tipo" />
+                        <p:inputText id="tipo" value="#{contasBean.c.tipo}" title="Tipo" />
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Titular:" for="titular" />
+                        <p:inputText id="titular" value="#{contasBean.c.titular}" title="Titular" />
+                    </div>
+                </div>
+            </div>
+            <p:commandButton action="#{contasBean.create()}" icon="ui-icon-disk" value="Salvar" ajax="true" update="listacontas"/>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

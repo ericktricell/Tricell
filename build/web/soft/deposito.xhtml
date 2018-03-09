@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base.xhtml">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewAction action="#{depositoBean.pegaDepositos()}" />
+        </f:metadata>
+
+        <h:form id="listaDep">
+            <p:dataTable value="#{depositoBean.lsitDep}" var="item" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" resizableColumns="true">
+                <p:column style="width:100px;text-align: center">
+                    <p:commandButton icon="ui-icon-search" ajax="true" update="detDep">
+                        <f:setPropertyActionListener value="#{item}" target="#{depositoBean.dep}"/>
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" ajax="true" update="listaDep" action="#{depositoBean.excluir()}">
+                        <f:setPropertyActionListener value="#{item}" target="#{depositoBean.dep}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Data"/>
+                    </f:facet>
+                    <h:outputText value="#{item.data}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Valor"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valor}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Conta"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idConta.numconta}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Titular"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idConta.titular}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="detDep">
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p:outputLabel value="Data:" for="data" />
+                        <p:calendar id="data" value="#{depositoBean.dep.data}" title="Data" showOn="button"/>
+                    </div>
+                    <div class="col-md-3">
+                        <p:outputLabel value="Valor:" for="valor" />
+                        <p:inputText id="valor" value="#{depositoBean.dep.valor}" title="Valor" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
+                    <div class="col-md-6">
+                    <p:outputLabel value="Conta:" for="idConta" />
+                    <p:selectOneMenu id="idConta" value="#{depositoBean.dep.idConta}" converter="ContaConverter" required="true" requiredMessage="Selecione a conta do deposito.">
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true"/>
+                        <f:selectItems value="#{depositoBean.lsConta}" var="c" itemLabel="#{c.titular} - #{c.numconta}" itemValue="#{c}"/>
+                    </p:selectOneMenu>
+                    </div>  
+                </div>
+            </div>
+            <p:commandButton action="#{depositoBean.salvaCaralho()}" icon="ui-icon-disk" value="Salvar" ajax="true" update="listaDep"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

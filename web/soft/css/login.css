@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01/03/2018, 07:51:03
+    Author     : Eu
+*/
+
+body{
+    background-color: #667;
+    margin: 0px;
+}
+
+.card-login{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    max-width: 30rem;
+    top: 150px;
+    height: 200px;
+    background-color: lightgray;
+}
+.card-group{
+    padding: 8px;
+}
+
+.card-header{
+    padding: 8px;
+}

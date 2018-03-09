@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="pt">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        
+        <title>Tricell Soluções Tecnologicas</title>
+        
+        <meta name="description" content="Soluções Tecnologicas"/>
+        <meta name="author" content="Tricell"/>
+        
+        <!-- Favicons
+    ================================================== -->
+<link rel="shortcut icon" href="img/logo.png" type="image/x-icon"/>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png"/>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css"  href="css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css"/>
+
+<!-- Stylesheet
+    ================================================== -->
+<link rel="stylesheet" type="text/css"  href="css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css"/>
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'/>
+<script type="text/javascript" src="js/modernizr.custom.js"></script>
+
+    </h:head>
+    <h:body>
+        <nav id="menu" class="navbar navbar-default navbar-fixed-top">
+  <div class="container"> 
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="index.jsf"><img src="img/icon.png" align="left"/> Tricell</a> </div>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#home" class="page-scroll">Home</a></li>
+        <li><a href="#services-section" class="page-scroll">Serviços</a></li>
+        <li><a href="#works-section" class="page-scroll">Portfolio</a></li>
+        <li><a href="#about-section" class="page-scroll">Quem Somos</a></li>
+        <li><a href="#team-section" class="page-scroll">Time</a></li>
+        <li><a href="#contact-section" class="page-scroll">Contato</a></li>
+        <li><a href="soft/login.jsf" class="page-scroll">DashBoard</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse --> 
+  </div>
+  <!-- /.container-fluid --> 
+</nav>
+        
+<!-- Header -->
+<header class="text-center" name="home">
+  <div class="intro-text">
+    <h1>Bem Vindo a <strong>Tricell</strong></h1>
+    <p>Somos uma agência criativa integrada de serviço completo</p>
+    <a href="#services-section" class="btn btn-default btn-lg page-scroll">SABER MAIS</a> </div>
+</header>
+
+<!-- Services Section -->
+<div id="services-section" class="text-center">
+  <div class="container">
+    <div class="section-title center">
+      <h2>Nossos Serviços</h2>
+      <hr/>
+      <div class="clearfix"></div>
+      <p>O Desenvolvimento de Sites é um serviço importante e muito procurado por empresas de todos os portes.
+	  Não ter uma presença digital nesse momento em que o acesso à internet cresce em todo o país e em todas as
+	  classes sociais pode prejudicar os negócios.</p>
+    </div>
+    <div class="row">
+        
+      <div class="col-md-3 col-sm-6 service"> <i class="fa fa-desktop"></i>
+        <h4>Web Design</h4>
+        <p>Desenvolvimento de sites para marcar presença na web.</p>
+      </div>
+        
+      <div class="col-md-3 col-sm-6 service"> <i class="fa fa-windows"></i>
+        <h4>Desenvolvimento de Sistemas</h4>
+        <p>Desenvolvemos sistemas de diversas naturezas e plataformas.</p>
+      </div>
+        
+      <div class="col-md-3 col-sm-6 service"> <i class="fa fa-gears"></i>
+        <h4>Manutenção de Computares, celulares e tablets</h4>
+        <p>Realizamos manutenções preventivas e corretivas em seu desktop, notebook, smartphone e tablet.</p>
+      </div>
+        
+      <div class="col-md-3 col-sm-6 service"> <i class="fa fa-line-chart"></i>
+        <h4>Marketing digital</h4>
+        <p>Alavancamos suas visualizações e conversões com as melhores estrategias de marketing.</p>
+      </div>  
+      
+    </div>
+  </div>
+</div>
+
+<!-- Portfolio Section -->
+<div id="works-section">
+  <div class="container"> <!-- Container -->
+    <div class="section-title text-center center">
+      <h2>Nosso Portfolio</h2>
+      <hr/>
+      <div class="clearfix"></div>
+      <p>Conheça uma pequena parte do nosso portfólio dividida por serviços:</p>
+    </div>
+    <div class="categories">
+      <ul class="cat">
+        <li>
+          <ol class="type">
+            <li><a href="#" data-filter="*" class="active">Todos</a></li>
+            <li><a href="#" data-filter=".web">Web Design</a></li>
+            <li><a href="#" data-filter=".app">Desenvolvimento de Sistemas</a></li>
+            <li><a href="#" data-filter=".branding">Marketing digital</a></li>
+          </ol>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="row">
+      <div class="portfolio-items">
+          
+        <div class="col-sm-6 col-md-3 col-lg-3 app">
+          <div class="portfolio-item">
+              <div class="hover-bg"> <a href="img/portfolio/orcamento.png" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Gerenciador de Orçamentos</h4>
+                <small>Software Desktop</small>
+                <div class="clearfix"></div>
+              </div>
+                      <img src="img/portfolio/orcamento.png" class="img-responsive" alt="Orçamento"/> </a> </div>
+          </div>
+        </div>
+              
+        <div class="col-sm-6 col-md-3 col-lg-3 web">
+          <div class="portfolio-item">
+              <div class="hover-bg"> <a href="img/portfolio/siteTricell.png" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Site Tricell Tecnologia</h4>
+                <small>Site</small>
+                <div class="clearfix"></div>
+              </div>
+                      <img src="img/portfolio/siteTricell.png" class="img-responsive" alt="Tricell Soluções Tecnologicas"/> </a> </div>
+          </div>
+        </div>
+          
+              
+        <div class="col-sm-6 col-md-3 col-lg-3 app">
+          <div class="portfolio-item">
+              <div class="hover-bg"> <a href="img/portfolio/login.png" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>EA-Gestor</h4>
+                <small>Software Desktop</small>
+                <div class="clearfix"></div>
+              </div>
+                      <img src="img/portfolio/login.png" class="img-responsive" alt="EA-Gestor"/> </a> </div>
+          </div>
+        </div>
+          
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- About Section -->
+<div id="about-section">
+  <div class="container">
+    <div class="section-title text-center center">
+      <h2>Sobre nós</h2>
+      <hr/>
+      <div class="clearfix"></div>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-6"> <img src="img/about.jpg" class="img-responsive"/> </div>
+      <div class="col-md-6">
+        <div class="about-text">
+          <h4>Quem somos</h4>
+          <p>Fundada em 2017, a Tricell é uma startup de TI (Tecnologia da Informação) especializada em prestação de serviços 
+              e tem a solução ideal para empresas que buscam utilizar o máximo de tecnologia em favor de seus negócios.<br/><br/>
+          Comprometimento total, respeito, ética e transparência junto a clientes, fornecedores, parceiros e colaboradores. 
+
+          Fale com a <a href="#contact-section" class="page-scroll">Tricell</a> e agende uma visita sem compromisso e descubra o que uma boa administração dos recursos tecnológicos 
+pode proporcionar aos seus negócios.</p>
+          <h4>O que nós fazemos</h4>
+          <p>Avaliamos as melhores estratégias para desenvolvimento e implantação de sistemas e sites, administramos seu banco de dados mantendo-o seguro com as melhores soluções de backup e auditoria de segurança e realização de 
+              manutenções preventivas e corretivas.</p>
+          <h4>Porque escolher-nos</h4>
+          <p>Temos uma equipe treinada para oferecer um atendimento ágil e personalizado, apta a prestar os mais variados serviços.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Team Section -->
+<div id="team-section" class="text-center">
+  <div class="container">
+    <div class="section-title center">
+      <h2>Conheça o time</h2>
+      <hr/>
+      <p>Conheça nossa equipe de colaboradores, desenvolvedores, analistas e técnicos.</p>
+    </div>
+    <div id="row">
+      <div class="col-md-3 col-sm-6 team">
+          <div class="thumbnail"> <img src="img/team/erick.png" alt="..." class="img-circle team-img"/>
+          <div class="caption">
+            <h3>Erick Alves</h3>
+            <p>Fundador / Gerente de Projetos</p>
+            <p>Bacharel em Sistemas de Informação com conhecimentos de analise de sistemas, gerenciamento de projetos, desenvolvimento Java (SE,EE), 
+               Python/Django, administração de dados e manutenção de micros.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 team">
+          <div class="thumbnail"> <img src="img/team/bruno.jpg" alt="..." class="img-circle team-img"/>
+          <div class="caption">
+            <h3>Bruno Mendes</h3>
+            <p>Web Designer</p>
+            <p>Bacharel em Sistemas de Informação com conhecimento em web designer, PHP, edição de fotos e videos, desenvolvimento android, administração de banco de dados.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div id="contact-section" class="text-center">
+  <div class="container">
+    <div class="section-title center">
+      <h2>Contate-nos</h2>
+      <hr/>
+      <p></p>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-4"> <i class="fa fa-map-marker"></i>
+        <p>Rua das amoras 198,<br/>
+          Primavera, Paracatu-MG</p>
+      </div>
+      <div class="col-md-4"> <i class="fa fa-envelope"></i>
+        <p>tricell@gmail.com</p>
+      </div>
+        <div class="col-md-4"> <i class="fa fa-phone"></i><i class="fa fa-whatsapp"></i>
+        <p> +55 38 9 9995 0695</p>
+      </div>
+      <hr/>
+      <div class="clearfix"></div>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+      <h3>Deixe-nos sua mensagem</h3>
+      <form name="sentMessage" id="contactForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" id="name" class="form-control" placeholder="Nome" required="required"/>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="email" id="email" class="form-control" placeholder="Email" required="required"/>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Mensagem" required="required"></textarea>
+          <p class="help-block text-danger"></p>
+        </div>
+        <div id="success"></div>
+        <button type="submit" class="btn btn-default">Enviar Mensagem</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="social-section">
+  <div class="container">
+    <div class="social">
+      <ul>
+        <li><a href="https://www.facebook.com/erick.alvesvulgofoguinho"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com/erickfoguinho/"><i class="fa fa-instagram"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/erick-alves-de-oliveira-0a7b2633/"><i class="fa fa-linkedin"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="footer">
+  <div class="container">
+    <div class="fnav">
+      <p>Copyright &copy; Helios. Designed by <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a></p>
+    </div>
+  </div>
+</div>
+    
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script type="text/javascript" src="js/jquery.1.11.1.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script type="text/javascript" src="js/bootstrap.js"></script> 
+<script type="text/javascript" src="js/SmoothScroll.js"></script> 
+<script type="text/javascript" src="js/jquery.counterup.js"></script> 
+<script type="text/javascript" src="js/waypoints.js"></script> 
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script> 
+<script type="text/javascript" src="js/jquery.isotope.js"></script> 
+<script type="text/javascript" src="js/jqBootstrapValidation.js"></script> 
+<script type="text/javascript" src="js/contact_me.js"></script> 
+
+<!-- Javascripts
+    ================================================== --> 
+<script type="text/javascript" src="js/main.js"></script>
+    </h:body>
+</html>
+
