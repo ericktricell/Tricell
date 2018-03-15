@@ -27,7 +27,7 @@ public class ContaConverter implements Converter{
         try{
             return cjc.findContaNum(string);
         }catch(Exception e){
-            //System.out.println("\n\ndado nao encontrado \t" + string + "\n\n");
+            System.out.println("\n\nconta nao encontrada \t" + string + "\n\n");
             //e.printStackTrace();
             return null;
         }

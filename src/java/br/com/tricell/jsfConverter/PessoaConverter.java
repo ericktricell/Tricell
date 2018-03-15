@@ -27,7 +27,7 @@ public class PessoaConverter implements Converter{
         try{
             return jpa.findPessoa(Long.parseLong(string));
         }catch(Exception e){
-            System.out.println("\n\ndado nao encontrado \t" + string + "\n\n");
+            System.out.println("\n\ndado nao encontrado \t" + string + "\naqui\n");
             return null;
         }
     }

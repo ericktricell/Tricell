@@ -7,15 +7,17 @@ package br.com.tricell.bean;
 
 import br.com.tricell.dao.ContaJpaController;
 import br.com.tricell.dao.MovimentoJpaController;
-import br.com.tricell.dao.PessoaJpaController;
 import br.com.tricell.model.Conta;
 import br.com.tricell.model.Movimento;
 import br.com.tricell.model.Pessoa;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManagerFactory;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -29,28 +31,29 @@ public class MovimentoBean implements Serializable{
     private Movimento mov = new Movimento();
     private List<Movimento> lsMov;
     private List<Conta> lsConta;
-    private List<Pessoa> lsPes;
 
     public void pegaDados(){
         lsConta = new ContaJpaController(emf).findContaEntities();
-        lsPes = new PessoaJpaController(emf).findPessoaEntities();
         lsMov = new MovimentoJpaController(emf).findMovimentoEntities();
     }
     
+    public void salvaPorra(){
+        mov.setDataReg(new Date());
+        new MovimentoJpaController(emf).create(mov);
+    }
+
+    public void pessoaSelecionada(SelectEvent event){
+        Pessoa pes = (Pessoa) event.getObject();
+        mov.setIdPessoa(pes);
+        
+    }
+
     public List<Conta> getLsConta() {
         return lsConta;
     }
 
     public void setLsConta(List<Conta> lsConta) {
         this.lsConta = lsConta;
-    }
-
-    public List<Pessoa> getLsPes() {
-        return lsPes;
-    }
-
-    public void setLsPes(List<Pessoa> lsPes) {
-        this.lsPes = lsPes;
     }
 
     public EntityManagerFactory getEmf() {

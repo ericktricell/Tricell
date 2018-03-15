@@ -6,6 +6,7 @@
 package br.com.tricell.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -62,6 +65,8 @@ public class Movimento implements Serializable {
     private Double vlrparc;
     @Column(name = "categoria")
     private String categoria;
+    @Temporal(TemporalType.DATE)
+    private Date dataReg;
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario idusuario;
@@ -73,6 +78,14 @@ public class Movimento implements Serializable {
     private Pessoa idPessoa;
 
     public Movimento() {
+    }
+
+    public Date getDataReg() {
+        return dataReg;
+    }
+
+    public void setDataReg(Date dataReg) {
+        this.dataReg = dataReg;
     }
 
     public Movimento(Long idmovimento) {

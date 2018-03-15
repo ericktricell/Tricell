@@ -35,117 +35,13 @@ public class EmpresaJpaController implements Serializable {
     }
 
     public void create(Empresa empresa) {
-        if (empresa.getUsuarioList() == null) {
-            empresa.setUsuarioList(new ArrayList<Usuario>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Usuario> attachedUsuarioList = new ArrayList<Usuario>();
-            for (Usuario usuarioListUsuarioToAttach : empresa.getUsuarioList()) {
-                usuarioListUsuarioToAttach = em.getReference(usuarioListUsuarioToAttach.getClass(), usuarioListUsuarioToAttach.getIdusuario());
-                attachedUsuarioList.add(usuarioListUsuarioToAttach);
-            }
-            empresa.setUsuarioList(attachedUsuarioList);
+            
             em.persist(empresa);
-            for (Usuario usuarioListUsuario : empresa.getUsuarioList()) {
-                Empresa oldIdempresaOfUsuarioListUsuario = usuarioListUsuario.getIdempresa();
-                usuarioListUsuario.setIdempresa(empresa);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
-                if (oldIdempresaOfUsuarioListUsuario != null) {
-                    oldIdempresaOfUsuarioListUsuario.getUsuarioList().remove(usuarioListUsuario);
-                    oldIdempresaOfUsuarioListUsuario = em.merge(oldIdempresaOfUsuarioListUsuario);
-                }
-            }
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void edit(Empresa empresa) throws IllegalOrphanException, NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Empresa persistentEmpresa = em.find(Empresa.class, empresa.getIdempresa());
-            List<Usuario> usuarioListOld = persistentEmpresa.getUsuarioList();
-            List<Usuario> usuarioListNew = empresa.getUsuarioList();
-            List<String> illegalOrphanMessages = null;
-            for (Usuario usuarioListOldUsuario : usuarioListOld) {
-                if (!usuarioListNew.contains(usuarioListOldUsuario)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Usuario " + usuarioListOldUsuario + " since its idempresa field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<Usuario> attachedUsuarioListNew = new ArrayList<Usuario>();
-            for (Usuario usuarioListNewUsuarioToAttach : usuarioListNew) {
-                usuarioListNewUsuarioToAttach = em.getReference(usuarioListNewUsuarioToAttach.getClass(), usuarioListNewUsuarioToAttach.getIdusuario());
-                attachedUsuarioListNew.add(usuarioListNewUsuarioToAttach);
-            }
-            usuarioListNew = attachedUsuarioListNew;
-            empresa.setUsuarioList(usuarioListNew);
-            empresa = em.merge(empresa);
-            for (Usuario usuarioListNewUsuario : usuarioListNew) {
-                if (!usuarioListOld.contains(usuarioListNewUsuario)) {
-                    Empresa oldIdempresaOfUsuarioListNewUsuario = usuarioListNewUsuario.getIdempresa();
-                    usuarioListNewUsuario.setIdempresa(empresa);
-                    usuarioListNewUsuario = em.merge(usuarioListNewUsuario);
-                    if (oldIdempresaOfUsuarioListNewUsuario != null && !oldIdempresaOfUsuarioListNewUsuario.equals(empresa)) {
-                        oldIdempresaOfUsuarioListNewUsuario.getUsuarioList().remove(usuarioListNewUsuario);
-                        oldIdempresaOfUsuarioListNewUsuario = em.merge(oldIdempresaOfUsuarioListNewUsuario);
-                    }
-                }
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Long id = empresa.getIdempresa();
-                if (findEmpresa(id) == null) {
-                    throw new NonexistentEntityException("The empresa with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Long id) throws IllegalOrphanException, NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Empresa empresa;
-            try {
-                empresa = em.getReference(Empresa.class, id);
-                empresa.getIdempresa();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The empresa with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            List<Usuario> usuarioListOrphanCheck = empresa.getUsuarioList();
-            for (Usuario usuarioListOrphanCheckUsuario : usuarioListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Empresa (" + empresa + ") cannot be destroyed since the Usuario " + usuarioListOrphanCheckUsuario + " in its usuarioList field has a non-nullable idempresa field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            em.remove(empresa);
+            
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -187,17 +83,5 @@ public class EmpresaJpaController implements Serializable {
         }
     }
 
-    public int getEmpresaCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Empresa> rt = cq.from(Empresa.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
     
 }

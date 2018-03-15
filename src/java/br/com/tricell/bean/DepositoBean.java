@@ -8,7 +8,6 @@ package br.com.tricell.bean;
 import br.com.tricell.dao.ContaJpaController;
 import br.com.tricell.dao.DepositoJpaController;
 import br.com.tricell.dao.exceptions.NonexistentEntityException;
-import br.com.tricell.fabrica.FabricaSessao;
 import br.com.tricell.model.Conta;
 import br.com.tricell.model.Deposito;
 import java.io.IOException;
@@ -37,10 +36,6 @@ public class DepositoBean implements Serializable{
 
     public void salvaCaralho() throws IOException{
         new DepositoJpaController(emf).create(dep);
-    }
-    
-    public void excluir() throws NonexistentEntityException{
-        new DepositoJpaController(emf).destroy(dep.getIddeposito());
     }
     
     public void pegaDepositos(){

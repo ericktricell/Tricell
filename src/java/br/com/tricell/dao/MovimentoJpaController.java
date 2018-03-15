@@ -39,138 +39,13 @@ public class MovimentoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario idusuario = movimento.getIdusuario();
-            if (idusuario != null) {
-                idusuario = em.getReference(idusuario.getClass(), idusuario.getIdusuario());
-                movimento.setIdusuario(idusuario);
-            }
-            Conta idConta = movimento.getIdConta();
-            if (idConta != null) {
-                idConta = em.getReference(idConta.getClass(), idConta.getIdConta());
-                movimento.setIdConta(idConta);
-            }
-            Pessoa idPessoa = movimento.getIdPessoa();
-            if (idPessoa != null) {
-                idPessoa = em.getReference(idPessoa.getClass(), idPessoa.getIdPessoa());
-                movimento.setIdPessoa(idPessoa);
-            }
+            
             em.persist(movimento);
-            if (idusuario != null) {
-                idusuario.getMovimentoList().add(movimento);
-                idusuario = em.merge(idusuario);
-            }
-            if (idConta != null) {
-                idConta.getMovimentoList().add(movimento);
-                idConta = em.merge(idConta);
-            }
-            if (idPessoa != null) {
-                idPessoa.getMovimentoList().add(movimento);
-                idPessoa = em.merge(idPessoa);
-            }
+            
             em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void edit(Movimento movimento) throws NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Movimento persistentMovimento = em.find(Movimento.class, movimento.getIdmovimento());
-            Usuario idusuarioOld = persistentMovimento.getIdusuario();
-            Usuario idusuarioNew = movimento.getIdusuario();
-            Conta idContaOld = persistentMovimento.getIdConta();
-            Conta idContaNew = movimento.getIdConta();
-            Pessoa idPessoaOld = persistentMovimento.getIdPessoa();
-            Pessoa idPessoaNew = movimento.getIdPessoa();
-            if (idusuarioNew != null) {
-                idusuarioNew = em.getReference(idusuarioNew.getClass(), idusuarioNew.getIdusuario());
-                movimento.setIdusuario(idusuarioNew);
-            }
-            if (idContaNew != null) {
-                idContaNew = em.getReference(idContaNew.getClass(), idContaNew.getIdConta());
-                movimento.setIdConta(idContaNew);
-            }
-            if (idPessoaNew != null) {
-                idPessoaNew = em.getReference(idPessoaNew.getClass(), idPessoaNew.getIdPessoa());
-                movimento.setIdPessoa(idPessoaNew);
-            }
-            movimento = em.merge(movimento);
-            if (idusuarioOld != null && !idusuarioOld.equals(idusuarioNew)) {
-                idusuarioOld.getMovimentoList().remove(movimento);
-                idusuarioOld = em.merge(idusuarioOld);
-            }
-            if (idusuarioNew != null && !idusuarioNew.equals(idusuarioOld)) {
-                idusuarioNew.getMovimentoList().add(movimento);
-                idusuarioNew = em.merge(idusuarioNew);
-            }
-            if (idContaOld != null && !idContaOld.equals(idContaNew)) {
-                idContaOld.getMovimentoList().remove(movimento);
-                idContaOld = em.merge(idContaOld);
-            }
-            if (idContaNew != null && !idContaNew.equals(idContaOld)) {
-                idContaNew.getMovimentoList().add(movimento);
-                idContaNew = em.merge(idContaNew);
-            }
-            if (idPessoaOld != null && !idPessoaOld.equals(idPessoaNew)) {
-                idPessoaOld.getMovimentoList().remove(movimento);
-                idPessoaOld = em.merge(idPessoaOld);
-            }
-            if (idPessoaNew != null && !idPessoaNew.equals(idPessoaOld)) {
-                idPessoaNew.getMovimentoList().add(movimento);
-                idPessoaNew = em.merge(idPessoaNew);
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Long id = movimento.getIdmovimento();
-                if (findMovimento(id) == null) {
-                    throw new NonexistentEntityException("The movimento with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Long id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Movimento movimento;
-            try {
-                movimento = em.getReference(Movimento.class, id);
-                movimento.getIdmovimento();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The movimento with id " + id + " no longer exists.", enfe);
-            }
-            Usuario idusuario = movimento.getIdusuario();
-            if (idusuario != null) {
-                idusuario.getMovimentoList().remove(movimento);
-                idusuario = em.merge(idusuario);
-            }
-            Conta idConta = movimento.getIdConta();
-            if (idConta != null) {
-                idConta.getMovimentoList().remove(movimento);
-                idConta = em.merge(idConta);
-            }
-            Pessoa idPessoa = movimento.getIdPessoa();
-            if (idPessoa != null) {
-                idPessoa.getMovimentoList().remove(movimento);
-                idPessoa = em.merge(idPessoa);
-            }
-            em.remove(movimento);
-            em.getTransaction().commit();
-        } finally {
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
             if (em != null) {
                 em.close();
             }
@@ -210,17 +85,4 @@ public class MovimentoJpaController implements Serializable {
         }
     }
 
-    public int getMovimentoCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Movimento> rt = cq.from(Movimento.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
-    
 }

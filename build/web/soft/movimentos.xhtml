@@ -20,7 +20,7 @@ and open the template in the editor.
         <p:tabView>
             <p:tab title="Cadastrar">
                 <h:form>
-                    <p:panelGrid columns="2">
+                    <p:panelGrid columns="2" styleClass="semBorda">
                         <p:outputLabel value="Tipo:" for="tipo" />
                         <p:selectOneRadio id="tipo" value="#{movimentoBean.mov.tipo}">
                             <f:selectItem itemLabel="Despesa" itemValue="Despesa"/>
@@ -38,22 +38,38 @@ and open the template in the editor.
                             <f:selectItem itemLabel="Serviços" itemValue="Serviços" />
                             <f:selectItem itemLabel="Compras" itemValue="Compras" />
                         </p:selectOneMenu>
-                        
-                        <p:outputLabel value="Conta:" for="idConta" />
-                        <p:selectOneMenu id="idConta" value="#{movimentoBean.mov.idConta}" required="true">
+                        <p:outputLabel value="Form. de Pag.:" for="formaPagamento"/>
+                        <p:selectOneMenu id="formaPagamento" value="#{movimentoBean.mov.formapagamento}">
+                            <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro"/>
+                            <f:selectItem itemLabel="Cartão Debito" itemValue="Cartão Debito"/>
+                            <f:selectItem itemLabel="Cartão Crédito" itemValue="Cartão Crédito"/>
+                            <f:selectItem itemLabel="Transferencia Banc." itemValue="Transferencia Banc."/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Conta:" for="idConta"/>
+                        <p:selectOneMenu id="idConta" value="#{movimentoBean.mov.idConta}" converter="ContaConverter">
                             <!-- TODO: update below reference to list of available items-->
                             <f:selectItems value="#{movimentoBean.lsConta}" var="c" itemLabel="Titular - #{c.titular}" itemValue="#{c}" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="Pessoa:" for="idPessoa" />
-                        <p:selectOneMenu id="idPessoa" value="#{movimentoBean.mov.idPessoa}" >
-                            <!-- TODO: update below reference to list of available items-->
-                            <f:selectItems value="#{movimentoBean.lsPes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
+                    <p:panelGrid columns="3" styleClass="semBorda">
+                        <p:outputLabel value="Pessoa:" for="idPessoa" />
+                        <p:inputText id="idPessoa" value="#{movimentoBean.mov.idPessoa.nome}"
+                                     readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}"/>
+                        <p:commandButton icon="ui-icon-search" title="Pesquisar" action="#{selecaoPessoa.abrirDialogo()}"
+                                         process="@this" update="@none">
+                            <p:ajax event="dialogReturn" listener="#{movimentoBean.pessoaSelecionada}"
+                                    process="@this" update="idPessoa"/>
+                            <p:resetInput target="idPessoa"/>
+                        </p:commandButton>
+                    </p:panelGrid>
+                    <p:commandButton icon="ui-icon-disk" value="Salvar" action="#{movimentoBean.salvaPorra()}" ajax="false" update="visualizacao">
+                        <f:setPropertyActionListener value="#{loginBean.user}" target="#{movimentoBean.mov.idusuario}"/>
+                    </p:commandButton>
                 </h:form>
             </p:tab>
             <p:tab title="Vizualizar">
-                <h:form>
+                <h:form id="visualizacao">
                     <p:dataTable value="#{movimentoBean.lsMov}" var="item" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" resizableColumns="true">
@@ -110,7 +126,6 @@ and open the template in the editor.
 
                 </h:form>
             </p:tab>
-
         </p:tabView>
     </ui:define>
 

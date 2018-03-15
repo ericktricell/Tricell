@@ -41,98 +41,9 @@ public class PessoaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Movimento> attachedMovimentoList = new ArrayList<Movimento>();
-            for (Movimento movimentoListMovimentoToAttach : pessoa.getMovimentoList()) {
-                movimentoListMovimentoToAttach = em.getReference(movimentoListMovimentoToAttach.getClass(), movimentoListMovimentoToAttach.getIdmovimento());
-                attachedMovimentoList.add(movimentoListMovimentoToAttach);
-            }
-            pessoa.setMovimentoList(attachedMovimentoList);
+            
             em.persist(pessoa);
-            for (Movimento movimentoListMovimento : pessoa.getMovimentoList()) {
-                Pessoa oldIdPessoaOfMovimentoListMovimento = movimentoListMovimento.getIdPessoa();
-                movimentoListMovimento.setIdPessoa(pessoa);
-                movimentoListMovimento = em.merge(movimentoListMovimento);
-                if (oldIdPessoaOfMovimentoListMovimento != null) {
-                    oldIdPessoaOfMovimentoListMovimento.getMovimentoList().remove(movimentoListMovimento);
-                    oldIdPessoaOfMovimentoListMovimento = em.merge(oldIdPessoaOfMovimentoListMovimento);
-                }
-            }
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void edit(Pessoa pessoa) throws NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Pessoa persistentPessoa = em.find(Pessoa.class, pessoa.getIdPessoa());
-            List<Movimento> movimentoListOld = persistentPessoa.getMovimentoList();
-            List<Movimento> movimentoListNew = pessoa.getMovimentoList();
-            List<Movimento> attachedMovimentoListNew = new ArrayList<Movimento>();
-            for (Movimento movimentoListNewMovimentoToAttach : movimentoListNew) {
-                movimentoListNewMovimentoToAttach = em.getReference(movimentoListNewMovimentoToAttach.getClass(), movimentoListNewMovimentoToAttach.getIdmovimento());
-                attachedMovimentoListNew.add(movimentoListNewMovimentoToAttach);
-            }
-            movimentoListNew = attachedMovimentoListNew;
-            pessoa.setMovimentoList(movimentoListNew);
-            pessoa = em.merge(pessoa);
-            for (Movimento movimentoListOldMovimento : movimentoListOld) {
-                if (!movimentoListNew.contains(movimentoListOldMovimento)) {
-                    movimentoListOldMovimento.setIdPessoa(null);
-                    movimentoListOldMovimento = em.merge(movimentoListOldMovimento);
-                }
-            }
-            for (Movimento movimentoListNewMovimento : movimentoListNew) {
-                if (!movimentoListOld.contains(movimentoListNewMovimento)) {
-                    Pessoa oldIdPessoaOfMovimentoListNewMovimento = movimentoListNewMovimento.getIdPessoa();
-                    movimentoListNewMovimento.setIdPessoa(pessoa);
-                    movimentoListNewMovimento = em.merge(movimentoListNewMovimento);
-                    if (oldIdPessoaOfMovimentoListNewMovimento != null && !oldIdPessoaOfMovimentoListNewMovimento.equals(pessoa)) {
-                        oldIdPessoaOfMovimentoListNewMovimento.getMovimentoList().remove(movimentoListNewMovimento);
-                        oldIdPessoaOfMovimentoListNewMovimento = em.merge(oldIdPessoaOfMovimentoListNewMovimento);
-                    }
-                }
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Long id = pessoa.getIdPessoa();
-                if (findPessoa(id) == null) {
-                    throw new NonexistentEntityException("The pessoa with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Long id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Pessoa pessoa;
-            try {
-                pessoa = em.getReference(Pessoa.class, id);
-                pessoa.getIdPessoa();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The pessoa with id " + id + " no longer exists.", enfe);
-            }
-            List<Movimento> movimentoList = pessoa.getMovimentoList();
-            for (Movimento movimentoListMovimento : movimentoList) {
-                movimentoListMovimento.setIdPessoa(null);
-                movimentoListMovimento = em.merge(movimentoListMovimento);
-            }
-            em.remove(pessoa);
+            
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -173,18 +84,18 @@ public class PessoaJpaController implements Serializable {
             em.close();
         }
     }
-
-    public int getPessoaCount() {
+    
+    public List<Pessoa> findPessoa(String nome) {
         EntityManager em = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Pessoa> rt = cq.from(Pessoa.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
+            Query q = em.createNamedQuery("Pessoa.findByNome");
+            q.setParameter("nome", "%" + nome + "%");
+            return q.getResultList();
+        } catch(Exception e){
+            return null;
+        }finally {
             em.close();
         }
     }
-    
+
 }
