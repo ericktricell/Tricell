@@ -70,6 +70,8 @@ public class Pessoa implements Serializable {
     private String cidade;
     @Column(name = "cep")
     private String cep;
+    @Column(name = "tipo")
+    private String tipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoa")
     private List<Movimento> movimentoList;
 
@@ -78,6 +80,14 @@ public class Pessoa implements Serializable {
 
     public Pessoa(Long idPessoa) {
         this.idPessoa = idPessoa;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Long getIdPessoa() {

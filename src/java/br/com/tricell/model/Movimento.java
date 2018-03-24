@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Movimento.findByDescricao", query = "SELECT m FROM Movimento m WHERE m.descricao = :descricao")
     , @NamedQuery(name = "Movimento.findByQnt", query = "SELECT m FROM Movimento m WHERE m.qnt = :qnt")
     , @NamedQuery(name = "Movimento.findByVlr", query = "SELECT m FROM Movimento m WHERE m.vlr = :vlr")
+    , @NamedQuery(name = "Movimento.findByData", query = "SELECT m FROM Movimento m WHERE m.dataReg = :data")
     , @NamedQuery(name = "Movimento.findByFormapagamento", query = "SELECT m FROM Movimento m WHERE m.formapagamento = :formapagamento")
     , @NamedQuery(name = "Movimento.findByNparcelas", query = "SELECT m FROM Movimento m WHERE m.nparcelas = :nparcelas")
     , @NamedQuery(name = "Movimento.findByVlrparc", query = "SELECT m FROM Movimento m WHERE m.vlrparc = :vlrparc")
