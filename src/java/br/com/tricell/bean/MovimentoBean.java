@@ -10,7 +10,6 @@ import br.com.tricell.dao.MovimentoJpaController;
 import br.com.tricell.model.Conta;
 import br.com.tricell.model.Movimento;
 import br.com.tricell.model.Pessoa;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +33,7 @@ public class MovimentoBean implements Serializable{
 
     public void pegaDados(){
         lsConta = new ContaJpaController(emf).findContaEntities();
-        lsMov = new MovimentoJpaController(emf).findMovimentoEntities();
+        lsMov = new MovimentoJpaController(emf).findMovimentoDays();
     }
     
     public void salvaPorra(){
