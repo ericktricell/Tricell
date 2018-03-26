@@ -21,14 +21,19 @@ and open the template in the editor.
         <h:form>
             <p:menubar>
                 <p:menuitem icon="ui-icon-home" value="Resumo" action="#{menu.resumo()}">
-                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{inicioBean.emf}"/>
+                    <f:setPropertyActionListener value="#{loginBean.emf}" target="#{inicioBean.emf}"/>
+                </p:menuitem>
+                <p:menuitem icon="ui-icon-transferthick-e-w" value="Movimentos" action="#{menu.movimentos()}">
+                    <f:setPropertyActionListener value="#{loginBean.emf}" target="#{movimentoBean.emf}"/>
+                </p:menuitem>
+                <p:menuitem icon="ui-icon-person" value="Pessoas" action="#{menu.pessoas()}">
+                    <f:setPropertyActionListener value="#{loginBean.emf}" target="#{pessoaBean.emf}"/>
+                </p:menuitem>
+                <p:submenu icon="ui-icon-document" label="Relatórios">
+                    <p:menuitem value="Movimentos Mensais" action="#{menu.rel_movimentos()}">
+                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{relMov.emf}"/>
                     </p:menuitem>
-                    <p:menuitem icon="ui-icon-transferthick-e-w" value="Movimentos" action="#{menu.movimentos()}">
-                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{movimentoBean.emf}"/>
-                    </p:menuitem>
-                    <p:menuitem icon="ui-icon-person" value="Pessoas" action="#{menu.pessoas()}">
-                        <f:setPropertyActionListener value="#{loginBean.emf}" target="#{pessoaBean.emf}"/>
-                    </p:menuitem>
+                </p:submenu>
                 <p:submenu icon="ui-icon-gear" label="#{loginBean.user.idempresa.nomefantasia}">
                     <p:menuitem icon="ui-icon-suitcase" value="Empresas" action="#{menu.empresas()}">
                         <f:setPropertyActionListener value="#{loginBean.emf}" target="#{empresaBean.emf}"/>
@@ -42,9 +47,6 @@ and open the template in the editor.
                     <p:menuitem icon="ui-icon-bookmark" value="Depositos" action="#{menu.depositos()}">
                         <f:setPropertyActionListener value="#{loginBean.emf}" target="#{depositoBean.emf}"/>
                     </p:menuitem>
-                </p:submenu>
-                <p:submenu icon="ui-icon-document" label="Relatórios">
-                    <p:menuitem value="Movimentos Mensais"/>
                 </p:submenu>
                 <f:facet name="options">
                     <p:commandButton value="Logout" icon="ui-icon-extlink" action="#{loginBean.logout()}"/>
