@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base.xhtml">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewAction action="#{relMov.pegaTodos()}"/>
+        </f:metadata>
+
+        <h:form>
+            <p:dataTable value="#{relMov.lsMov}" var="item" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" resizableColumns="true" paginatorAlwaysVisible="false">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tipo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipo}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Descricao"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Qnt"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qnt}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Valor"/>
+                    </f:facet>
+                    <h:outputText value="R$ #{item.vlr}">
+                        <f:convertNumber minFractionDigits="2" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Total"/>
+                    </f:facet>
+                    <h:outputText value="R$ #{item.qnt * item.vlr}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="For. Pag."/>
+                    </f:facet>
+                    <h:outputText value="#{item.formapagamento}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Data"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dataReg}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Conta"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idConta.titular}"/>
+                </p:column>
+            </p:dataTable>
+            
+            <p:panelGrid columns="2" styleClass="semBorda">
+                <h:outputText value="Total Receitas"/>
+                <p:inputText value="R$ #{relMov.somaReceitas()}" readonly="true"/>
+                <h:outputText value="Total Despesas"/>
+                <p:inputText value="R$ #{relMov.somaDespesas()}" readonly="true"/>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
