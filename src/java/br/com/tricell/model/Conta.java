@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -51,6 +53,9 @@ public class Conta implements Serializable {
     private String numconta;
     @Column(name = "titular")
     private String titular;
+    @JoinColumn(name = "idempresa", referencedColumnName = "idempresa")
+    @ManyToOne(optional = false)
+    private Empresa empresa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConta")
     private List<Deposito> depositoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConta")
@@ -61,6 +66,14 @@ public class Conta implements Serializable {
 
     public Conta(Long idConta) {
         this.idConta = idConta;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     public Long getIdConta() {

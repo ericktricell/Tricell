@@ -7,14 +7,17 @@ package br.com.tricell.bean;
 
 import br.com.tricell.dao.EmpresaJpaController;
 import br.com.tricell.dao.UsuarioJpaController;
+import br.com.tricell.dao.exceptions.NonexistentEntityException;
 import br.com.tricell.model.Empresa;
 import br.com.tricell.model.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ApplicationScoped;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -22,7 +25,7 @@ import javax.persistence.EntityManagerFactory;
  * @author Eu
  */
 @ManagedBean
-@ApplicationScoped
+@SessionScoped
 public class UsuarioBean implements Serializable{
     
     private Usuario u = new Usuario();
@@ -40,6 +43,15 @@ public class UsuarioBean implements Serializable{
         
     }
     
+    public void editar(){
+        try {
+            new UsuarioJpaController(emf).edit(u);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(UsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void limpaCampos(){
         u = new Usuario();
         u.setAtivo(false);

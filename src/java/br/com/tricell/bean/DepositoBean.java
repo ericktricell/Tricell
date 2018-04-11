@@ -12,10 +12,13 @@ import br.com.tricell.model.Conta;
 import br.com.tricell.model.Deposito;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManagerFactory;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -29,6 +32,7 @@ public class DepositoBean implements Serializable{
     private List<Deposito> lsitDep;
     private List<Conta> lsConta;
     private EntityManagerFactory emf;
+    private Conta conta = new Conta();
 
     public DepositoBean() {
 //        emf = new FabricaSessao().getEmf();
@@ -44,6 +48,23 @@ public class DepositoBean implements Serializable{
         
     }
 
+    public void abreDialogo(){
+        Map<String,Object> opcoes = new HashMap<>();
+        opcoes.put("modal", true);
+        opcoes.put("resizable", false);
+        opcoes.put("contentHeight", 370);
+        
+        RequestContext.getCurrentInstance().openDialog("depositos", opcoes, null);
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+    
     public EntityManagerFactory getEmf() {
         return emf;
     }

@@ -1,0 +1,16 @@
+
+Modificações
+
+em movimentos mostrar apenas os do dia ok
+
+adicionar tipo de pessoa (cliente/fornecedor) ok
+
+configurar melhor a interface de pessoa
+
+todos os movimentos serão mostrados na pagina de relatorios, filtra-los em todos, por conta, mês
+
+em resumo deverá ter um grafico relacionando despesas com receitas do mes vigente
+
+em relatorio devera haver um grafico contendo a relação dos gastos mensal com a receita
+
+apenas informação do proprio usuario podera aparecer na aba assim como as contas

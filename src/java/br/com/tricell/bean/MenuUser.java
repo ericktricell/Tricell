@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "menu")
 @ViewScoped
-public class Menu implements Serializable{
+public class MenuUser implements Serializable{
     
     public void resumo() throws IOException{
         FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.jsf");

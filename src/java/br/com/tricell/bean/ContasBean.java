@@ -35,6 +35,8 @@ public class ContasBean implements Serializable{
 
     public void create() throws IOException{
         new ContaJpaController(emf).create(c);
+        c = new Conta();
+        c.setIdConta(new Long("0"));
         new Menu().contas();
     }
    

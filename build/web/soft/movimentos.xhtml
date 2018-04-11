@@ -63,9 +63,10 @@ and open the template in the editor.
                             <p:resetInput target="idPessoa"/>
                         </p:commandButton>
                     </p:panelGrid>
-                    <p:commandButton icon="ui-icon-disk" value="Salvar" action="#{movimentoBean.salvaPorra()}" ajax="false" update="visualizacao">
+                    <p:commandButton icon="ui-icon-disk" value="Salvar" action="#{movimentoBean.salvaPorra()}" ajax="true" update="@form">
                         <f:setPropertyActionListener value="#{loginBean.user}" target="#{movimentoBean.mov.idusuario}"/>
                     </p:commandButton>
+                    
                 </h:form>
             </p:tab>
             <p:tab title="Vizualizar">

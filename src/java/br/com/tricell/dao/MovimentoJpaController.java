@@ -15,6 +15,7 @@ import br.com.tricell.model.Usuario;
 import br.com.tricell.model.Conta;
 import br.com.tricell.model.Movimento;
 import br.com.tricell.model.Pessoa;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -56,6 +57,20 @@ public class MovimentoJpaController implements Serializable {
         return findMovimentoEntities(true, -1, -1);
     }
 
+    public List<Movimento> findMovimentoDays(){
+        EntityManager em = getEntityManager();
+        try{
+            Query q = em.createNamedQuery("Movimento.findByData");
+            q.setParameter("data", new Date());
+            return q.getResultList();
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }finally{
+            em.close();
+        }
+    }
+    
     public List<Movimento> findMovimentoEntities(int maxResults, int firstResult) {
         return findMovimentoEntities(false, maxResults, firstResult);
     }

@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManagerFactory;
 
@@ -22,7 +22,7 @@ import javax.persistence.EntityManagerFactory;
  * @author Eu
  */
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class LoginBean implements Serializable {
 
     private Usuario user = new Usuario();
@@ -36,7 +36,7 @@ public class LoginBean implements Serializable {
 
     public String valida() throws IOException {
 
-        if (login.equals("admin") && senha.equals("")) {
+        if (login.equals("admin") && senha.equals("tricell")) {
             return "/soft/inicio?faces-redirect=true";
         } else {
             luser = new UsuarioJpaController(emf).findUsuarioEntities();
@@ -53,7 +53,7 @@ public class LoginBean implements Serializable {
             if (v) {
 
                 new UsuarioBean().setU(user);
-                return "/soft/inicio?faces-redirect=true";
+                return "/soft/restrito/inicio?faces-redirect=true";
             } else {
                 context.addMessage(null, new FacesMessage("Falha", "Login ou senha inválidos"));
                 System.out.println("\ndeu errado " + login + " " + senha);

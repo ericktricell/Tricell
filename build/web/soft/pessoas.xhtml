@@ -58,6 +58,17 @@ and open the template in the editor.
         <h:form>
             <div class="card-group text-center">
                 <div class="row">
+                    <div class="col-md-8">
+                    <p:outputLabel value="Tipo:" for="tipo"/>
+                    <p:selectOneRadio id="tipo" value="#{pessoaBean.pes.tipo}">
+                        <f:selectItem itemLabel="Fornecedor" itemValue="Fornecedor"/>
+                        <f:selectItem itemLabel="Cliente" itemValue="Cliente"/>
+                    </p:selectOneRadio>
+                    </div>
+                </div>
+            </div>
+            <div class="card-group text-center">
+                <div class="row">
                     <div class="col-md-4">
                         <p:outputLabel value="Nome:" for="nome" />
                         <p:inputText id="nome" value="#{pessoaBean.pes.nome}" title="Nome" />

@@ -27,6 +27,24 @@ public class RelMov {
         lsMov = new MovimentoJpaController(emf).findMovimentoEntities();
     }
     
+    public double somaReceitas(){
+        double tot = 0.0;
+        for (Movimento m : lsMov){
+            if(m.getTipo().equals("Receita"))
+                tot += m.getVlr() * m.getQnt();
+        }
+        return tot;
+    }
+    
+    public double somaDespesas(){
+        double tot = 0.0;
+        for (Movimento m : lsMov){
+            if(m.getTipo().equals("Despesa"))
+                tot += m.getVlr() * m.getQnt();
+        }
+        return tot;
+    }
+    
     public EntityManagerFactory getEmf() {
         return emf;
     }
